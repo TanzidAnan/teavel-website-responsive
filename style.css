@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+body {
+    font-family: "Mulish", sans-serif;
+}
+
+* {
+    margin: 0;
+    /* padding: 0; */
+}
+
+.container {
+    width: 90%;
+    margin: 5rem auto;
+    border-radius: 1rem;
+}
+
+h3 {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 800;
+}
+
+.span {
+    color: rgb(255, 84, 0);
+}
+
+p,
+li {
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: normal;
+    text-align: center;
+}
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    width: 300px;
+}
+
+.logo img {
+    width: 47px;
+    height: 57px;
+    margin-right: .8rem;
+}
+
+.nav-option {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 2rem;
+}
+
+.nav-option p {
+    cursor: pointer;
+}
+
+/* banner */
+.explore-your-travel {
+    background-image: linear-gradient(180.00deg, rgba(19, 19, 24, 0.8), rgba(19, 19, 24, 0) 100%), url(/Images/Group\ 13\ \(1\)\ \(1\).png);
+    padding: 7rem 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.explore-container h3{
+    color: rgb(255, 255, 255);
+    font-size: 4rem;
+    font-weight: 800;
+}
+.explore-container p{
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    line-height: 26px;
+    width: 576px;
+    padding: 1.5rem 0;
+    margin: auto;
+}
