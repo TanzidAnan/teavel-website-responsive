@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const jwt =require('jsonwebtoken');
-const cookieParser =require('cookie-parser')
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser')
 const app = express();
 require('dotenv').config()
 
@@ -9,11 +9,13 @@ const port = process.env.PORT || 5000;
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 app.use(cors({
-    origin:['http://localhost:5173'],
-    credentials:true
+    origin: ['http://localhost:5173'],
+    credentials: true
 }));
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
+
+
 
 
 // const uri = "mongodb://localhost:27017";
@@ -39,18 +41,25 @@ async function run() {
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
-        app.post('/jwt',(req,res) =>{
-            const user =req.body;
-            const token =jwt.sign(user,process.env.JWT_SECRET,{expiresIn:'1h'})
+        app.post('/jwt', (req, res) => {
+            const user = req.body;
+            const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '1h' })
 
-            res.cookie('token',token,{
-                httpOnly:true,
-                secure:false
+            res.cookie('token', token, {
+                httpOnly: true,
+                secure: false
             })
-            .send({seccess:true})
+                .send({ seccess: true })
         })
 
-        app.post('/logout',)
+        app.post('/logout', (req, res) => {
+            res
+                .clearCookie('token', {
+                    httpOnly: true,
+                    secure: false
+                })
+                .send({ success: true })
+        })
 
         // jobs related apis
         const jobsCollection = client.db('jobPortal').collection('jobs');
@@ -87,6 +96,9 @@ async function run() {
         app.get('/job-application', async (req, res) => {
             const email = req.query.email;
             const query = { applicant_email: email }
+
+            console.log(req?.cookies?.token)
+
             const result = await jobApplicationCollection.find(query).toArray();
 
             // fokira way to aggregate data
