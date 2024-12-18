@@ -15,7 +15,22 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
+const varifyToken =(req,res,next)=>{
+    const token =req?.cookies?.token;
 
+    if(!token){
+        return res.status(401).send({message:'unAuthrages access'})
+    }
+    jwt.verify(token,process.env.JWT_SECRET,(err,decoded) =>{
+        if(err){
+            return res.status(401).send({message:'unAuthrages access'})
+        }
+        next()
+    })
+
+    console.log('varify token',token);
+    
+}
 
 
 // const uri = "mongodb://localhost:27017";
@@ -93,7 +108,7 @@ async function run() {
 
         // job application apis
         // get all data, get one data, get some data [o, 1, many]
-        app.get('/job-application', async (req, res) => {
+        app.get('/job-application',varifyToken, async (req, res) => {
             const email = req.query.email;
             const query = { applicant_email: email }
 
